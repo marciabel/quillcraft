@@ -7,7 +7,7 @@ public class Main {
         try {
             Menu.startMenu();
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+
         }
     }
 }
