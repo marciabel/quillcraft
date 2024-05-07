@@ -29,7 +29,6 @@ public class GreetingScreen extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 playerName = nameField.getText(); // Guardar el nombre del jugador
-                System.out.println("NAMEfIELD PLAYER NAME : " + playerName + "--------------------------------------------");
                 proceedToGame(); // Proceder al juego
             }
         });
@@ -61,7 +60,6 @@ public class GreetingScreen extends JPanel{
 
     private void proceedToGame() {
         if (screenChangeListener != null && !playerName.isEmpty()) {
-            System.out.println("PLAYER NAME : " + playerName + "--------------------------------------------");
             screenChangeListener.onScreenChange(new GameScreen(screenChangeListener, playerName));
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, ingresa tu nombre.", "Nombre requerido", JOptionPane.WARNING_MESSAGE);

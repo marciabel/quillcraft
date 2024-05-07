@@ -17,21 +17,17 @@ public class PersonajeGenerator {
 
         //Elegir raza random
         Integer razaRandom = NumberGenerator.generateRandomPositiveInteger(1,3);
-        System.out.println("Raza random: " + razaRandom);
         imagenesPorRaza = switch (razaRandom) {
             case 1 -> {
                 personaje = new Humano();
-                System.out.println("Personaje " + personaje);
                 yield indexPersonajes.getImagenesPorRaza("Humano");
             }
             case 2 -> {
                 personaje = new Elfo();
-                System.out.println("Personaje " + personaje);
                 yield indexPersonajes.getImagenesPorRaza("Elfo");
             }
             case 3 -> {
                 personaje = new Orco();
-                System.out.println("Personaje " + personaje);
                 yield indexPersonajes.getImagenesPorRaza("Orco");
             }
             default -> imagenesPorRaza;
@@ -40,7 +36,6 @@ public class PersonajeGenerator {
         //Rellenar atributos de manera aleatoria
         //Nombre
         String nombrePersonaje = nombres.get(NumberGenerator.generateRandomPositiveInteger(1, nombres.size())-1);
-        System.out.println("Nombre personaje; " + nombrePersonaje);
         personaje.setNombre(nombrePersonaje);
         //Apodo
         personaje.setApodo(apodos.get(NumberGenerator.generateRandomPositiveInteger(1, apodos.size())-1));
@@ -69,7 +64,6 @@ public class PersonajeGenerator {
         //Armadura
         personaje.setArmadura(NumberGenerator.generateRandomPositiveInteger(1, 10));
 
-        System.out.println("Personaje " + personaje);
         return personaje;
     }
 }

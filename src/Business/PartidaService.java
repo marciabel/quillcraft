@@ -2,11 +2,15 @@ package Business;
 
 import Model.Jugador;
 import Model.Personaje;
+import Presentation.Console.PrintHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class PartidaService {
+    private Scanner sc = new Scanner(System.in);
+
     private List<Jugador> jugadores = new ArrayList<>();
 
     private Jugador jugador;
@@ -21,11 +25,11 @@ public class PartidaService {
 
         jugadores.add(jugador);
         jugadores.add(maquina);
+
+        PrintHelper.imprimirInicioPartida();
     }
 
-    public void empezarPartida() {
-        inicializarJugadores();
-
+    public void empezarPartidaAleatoria() {
         inicializarPersonajes();
 
         //Comprobar que las listas de personajes han sido populadas
@@ -33,22 +37,41 @@ public class PartidaService {
             throw new IllegalStateException("Los jugadores deben tener por lo menos un personaje para poder jugar");
         }
 
+        empezarPartida();
+    }
+
+    public void empezarPartidaManual(List<Personaje> personajesJugador) {
+        inicializarPersonajes();
+
+        //A fines de reutilizar codigo y para simplificar la implementacion del programa, se recurre a este metodo
+        //Sin embargo, idealmente no se crearian personajes solo para luego borrarlos
+        jugador.getPersonajes().clear();
+        jugador.setPersonajes(personajesJugador);
+
+        empezarPartida();
+    }
+
+    public void empezarPartida() {
         while (!(jugador.getPersonajes().isEmpty() || maquina.getPersonajes().isEmpty())) {
+            System.out.println("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- CARTAS DEL JUGADOR " + jugador.nombre.toUpperCase() + "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
+            PrintHelper.imprimirCartas(jugador.getPersonajes());
+            System.out.println("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- CARTAS DEL JUGADOR " + maquina.nombre.toUpperCase() + "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
+            PrintHelper.imprimirCartas(maquina.getPersonajes());
+            System.out.println("Presione cualquier tecla para continuar");
+            sc.nextLine();
+
             // RONDA
             Personaje personajeJugadorUno =
                     jugador.getPersonajes().get(NumberGenerator.generateRandomPositiveInteger(1, jugador.getPersonajes().size())-1);
-            System.out.println(personajeJugadorUno);
 
             Personaje personajeJugadorDos =
                     maquina.getPersonajes().get(NumberGenerator.generateRandomPositiveInteger(1, maquina.getPersonajes().size())-1);
-            System.out.println(personajeJugadorDos);
 
             confrontar(personajeJugadorUno, personajeJugadorDos);
         }
-    }
 
-    public void inicializarJugadores() {
-
+        Jugador jugadorGanador = jugador.equals(jugadorIniciadorDeRonda)? maquina : jugador;
+        PrintHelper.imprimirFinDeLaPartida(jugadorGanador.nombre);
     }
 
     public List<Jugador> inicializarPersonajes() {
@@ -61,23 +84,26 @@ public class PartidaService {
         return jugadores;
     }
 
-    public void iniciarRonda() {
-        while (!(jugador.getPersonajes().isEmpty() || maquina.getPersonajes().isEmpty())) {
-            // RONDA
-            Personaje personajeJugadorUno =
-                    jugador.getPersonajes().get(NumberGenerator.generateRandomPositiveInteger(1, jugador.getPersonajes().size())-1);
-            System.out.println(personajeJugadorUno);
-
-            Personaje personajeJugadorDos =
-                    maquina.getPersonajes().get(NumberGenerator.generateRandomPositiveInteger(1, maquina.getPersonajes().size())-1);
-            System.out.println(personajeJugadorDos);
-        }
-    }
+//    public void iniciarRonda() {
+//        while (!(jugador.getPersonajes().isEmpty() || maquina.getPersonajes().isEmpty())) {
+//            // RONDA
+//            Personaje personajeJugadorUno =
+//                    jugador.getPersonajes().get(NumberGenerator.generateRandomPositiveInteger(1, jugador.getPersonajes().size())-1);
+//
+//            Personaje personajeJugadorDos =
+//                    maquina.getPersonajes().get(NumberGenerator.generateRandomPositiveInteger(1, maquina.getPersonajes().size())-1);
+//        }
+//
+//    }
 
     private void confrontar(Personaje p1, Personaje p2) {
         numeroRonda += 1;
-        System.out.println("Comenzando la ronda " + numeroRonda + " ---------------------------");
+        PrintHelper.imprimirRonda(numeroRonda);
 
+        List<Personaje> personajesCompetidores = new ArrayList<>();
+        personajesCompetidores.add(p1);
+        personajesCompetidores.add(p2);
+        PrintHelper.imprimirCartas(personajesCompetidores);
 
         Integer numeroAtaque = 0;
         Personaje personajeAtacante, personajeDefensor;
@@ -89,9 +115,6 @@ public class PartidaService {
         personajeDefensor = personajeAtacante == p1 ? p2 : p1;
 
         System.out.println("Jugador iniciador de la ronda: " + jugadorIniciadorDeRonda.nombre);
-
-        System.out.println("Personaje atacante: " + personajeAtacante.getNombre());
-        System.out.println("Personaje defensor: " + personajeDefensor.getNombre());
 
         while (numeroAtaque < 7 && personajeDefensor.getSalud() > 0 && personajeAtacante.getSalud() > 0) {
             int daño = personajeAtacante.atacar(personajeDefensor.poderDefensa());
@@ -115,9 +138,6 @@ public class PartidaService {
         if (personajeDefensor.getSalud() <= 0 || personajeAtacante.getSalud() <= 0) {
             Personaje personajeGanador = personajeDefensor.getSalud() <= 0 ? personajeAtacante : personajeDefensor;
             Personaje personajePerdedor = personajeGanador == personajeAtacante ? personajeDefensor : personajeAtacante;
-
-            System.out.println("El ganador de la ronda es: " + personajeGanador.getNombre());
-            System.out.println("El perdedor de la ronda es: " + personajePerdedor.getNombre());
 
             for (Jugador jugador : jugadores) {
                 if (jugador.getPersonajes().contains(personajePerdedor)) {
