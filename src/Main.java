@@ -7,7 +7,7 @@ public class Main {
         try {
             Menu.startMenu();
         } catch (ParseException e) {
-
+            System.out.println("Hubo un error al iniciar la partida");
         }
     }
 }
