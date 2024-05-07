@@ -118,4 +118,14 @@ public class PrintHelper {
         System.out.println("|             EL JUGADOR VICTORIOSO ES " + jugadorGanador.toUpperCase() + "     |");
         System.out.println("˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚");
     }
+
+    public static void menuLogs() {
+        System.out.println(" ----------------------------------------------------------------------- ");
+        System.out.println(
+                "               Que desea hacer?\n" +
+                        "\n" +
+                        "[1] Borrar logs\n" +
+                        "[2] Volver al menu principal\n" +
+                        "Seleccione una opcion ingresando el numero correspondiente:\n");
+    }
 }

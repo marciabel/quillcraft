@@ -25,8 +25,6 @@ public class PartidaService {
 
         jugadores.add(jugador);
         jugadores.add(maquina);
-
-        PrintHelper.imprimirInicioPartida();
     }
 
     public void empezarPartidaAleatoria() {
@@ -52,9 +50,12 @@ public class PartidaService {
     }
 
     public void empezarPartida() {
+        PrintHelper.imprimirInicioPartida();
         while (!(jugador.getPersonajes().isEmpty() || maquina.getPersonajes().isEmpty())) {
             System.out.println("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- CARTAS DEL JUGADOR " + jugador.nombre.toUpperCase() + "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
+            LoggerService.info(jugador.getPersonajes().toString());
             PrintHelper.imprimirCartas(jugador.getPersonajes());
+
             System.out.println("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- CARTAS DEL JUGADOR " + maquina.nombre.toUpperCase() + "-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
             PrintHelper.imprimirCartas(maquina.getPersonajes());
             System.out.println("Presione cualquier tecla para continuar");

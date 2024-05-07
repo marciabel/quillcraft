@@ -1,6 +1,7 @@
 package Presentation.Console;
 
 import Business.InputValidator;
+import Business.LoggerService;
 import Business.PartidaService;
 import Model.Elfo;
 import Model.Humano;
@@ -18,29 +19,32 @@ public class Menu {
     public static void startMenu() {
         PrintHelper.imprimirPresentacion();
         String nombreJugador = sc.next();
-
-        PrintHelper.imprimirMenu();
-        String opcionMenu = String.valueOf(InputValidator.inputOpcionMenu());
-
         partida = new PartidaService(nombreJugador);
 
-        switch (opcionMenu) {
-            case "1":
-                partida.empezarPartidaAleatoria();
-                break;
-            case "2":
-                empezarPartidaManual();
-                break;
-            case "3":
+        String opcionMenu;
 
-                break;
-            case "4":
+        do {
+            PrintHelper.imprimirMenu();
+            opcionMenu = String.valueOf(InputValidator.inputOpcionMenu());
 
-                break;
-            default:
-                System.out.println("La opcion ingresada no es correcta");
-                break;
-        }
+            switch (opcionMenu) {
+                case "1":
+                    partida.empezarPartidaAleatoria();
+                    break;
+                case "2":
+                    empezarPartidaManual();
+                    break;
+                case "3":
+                    manejarLogs();
+                    break;
+                case "4":
+                    System.out.println("Hasta la proxima!");
+                    return;
+                default:
+                    System.out.println("La opcion ingresada no es correcta");
+                    break;
+            }
+        } while (!opcionMenu.equals("4"));
     }
 
     private static void empezarPartidaManual() {
@@ -161,5 +165,23 @@ public class Menu {
         Integer maximoPuntos = 10 + 5 + 10 + 10; // 35
         Double nivelNormalizado = (double) sumaAtributos / maximoPuntos;
         return  1 + (int)(nivelNormalizado * 9);
+    }
+
+    private static void manejarLogs() {
+        System.out.println("Historial de logs: ");
+        LoggerService.getLogFile("game.log");
+        PrintHelper.menuLogs();
+        String opcionMenu = String.valueOf(InputValidator.inputIntegerRango(1,2));
+
+        switch (opcionMenu) {
+            case "1":
+                LoggerService.deleteLogs();
+                break;
+            case "2":
+                return;
+            default:
+                break;
+        }
+
     }
 }
