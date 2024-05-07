@@ -1,7 +1,13 @@
 import Presentation.Console.Menu;
 
+import java.text.ParseException;
+
 public class Main {
     public static void main(String[] args) {
-        Menu.startMenu();
+        try {
+            Menu.startMenu();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

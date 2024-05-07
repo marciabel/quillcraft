@@ -1,9 +1,11 @@
 package Model;
 
+import java.util.Date;
+
 public abstract class Personaje {
     private String nombre;
     private String apodo;
-    private Fecha fechaNacimiento;
+    private Date fechaNacimiento;
     private Integer edad;
     private Integer salud;
     private String imagen;
@@ -51,6 +53,20 @@ public abstract class Personaje {
         return (this.destreza * this.fuerza * this.nivel);
     }
 
+    public Boolean hasNullAttribute() {
+        return (
+                this.nombre == null ||
+                        this.apodo == null ||
+                        this.edad == null ||
+                        this.salud == null ||
+                        this.velocidad == null ||
+                        this.destreza == null ||
+                        this.fuerza == null ||
+                        this.nivel == null ||
+                        this.armadura== null
+                );
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -67,11 +83,11 @@ public abstract class Personaje {
         this.apodo = apodo;
     }
 
-    public Fecha getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Fecha fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 

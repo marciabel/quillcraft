@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Jugador {
-    public String nombre;
+    private String nombre;
     private List<Personaje> personajes;
 
     public Jugador(String nombre) {
@@ -21,6 +21,14 @@ public class Jugador {
 
     public void addPersonaje(Personaje personaje) {
         this.personajes.add(personaje);
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public List<Personaje> getPersonajes() {

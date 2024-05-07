@@ -12,6 +12,9 @@ public class LoggerService {
 
     static {
         try {
+            // Desactivar el logging a consola
+            logger.setUseParentHandlers(false);
+
             FileHandler fileHandler = new FileHandler("game.log", true);
             fileHandler.setFormatter(new SimpleFormatter());
             logger.addHandler(fileHandler);
@@ -50,7 +53,6 @@ public class LoggerService {
     public static void deleteLogs() {
         String logFilePath = "game.log";
         try (PrintWriter writer = new PrintWriter(new FileWriter(logFilePath, false))) {
-            // Al no escribir nada en el archivo, se borrará su contenido
         } catch (IOException e) {
             System.err.println("No se pudo borrar el contenido del archivo de log: " + e.getMessage());
         }

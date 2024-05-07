@@ -1,8 +1,8 @@
 package Presentation.Console;
 
+import Business.NumberGenerator;
 import Model.Personaje;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,23 +34,6 @@ public class PrintHelper {
                 "[4] Salir\n" +
                 "\n" +
                 "Seleccione una opcion ingresando el numero correspondiente:\n");
-    }
-
-    public static void imprimirCarta(Personaje personaje, String raza) {
-        System.out.println(" /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\ ");
-        System.out.println("(|            "+ raza +"             |)");
-        System.out.println(" |----------------------------------| ");
-        System.out.println(" | Nombre: " + String.format("%-24s", personaje.getNombre() + (personaje.getApodo() != null ? " (" + personaje.getApodo() + ")" : "")) + " |");
-        System.out.println(" | Fecha de Nac.: " + String.format("%-20s", personaje.getFechaNacimiento()) + " |");
-        System.out.println(" | Edad: " + String.format("%-28s", personaje.getEdad()) + " |");
-        System.out.println(" | Salud: " + String.format("%-27s", personaje.getSalud()) + " |");
-        System.out.println(" | Imagen: " + String.format("%-26s", personaje.getImagen()) + " |");
-        System.out.println(" | Velocidad: " + String.format("%-23s", personaje.getVelocidad()) + " |");
-        System.out.println(" | Destreza: " + String.format("%-24s", personaje.getDestreza()) + " |");
-        System.out.println(" | Fuerza: " + String.format("%-26s", personaje.getFuerza()) + " |");
-        System.out.println(" | Nivel: " + String.format("%-27s", personaje.getNivel()) + " |");
-        System.out.println(" | Armadura: " + String.format("%-24s", personaje.getArmadura()) + " |");
-        System.out.println(" \\~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/ ");
     }
 
     public static void imprimirCartas(List<Personaje> personajes) {
@@ -95,6 +78,33 @@ public class PrintHelper {
         System.out.println("====================================================================================================");
     }
 
+    public static void imprimirInicioConfrontacion() {
+        List<String> frasesInicioConfrontacion = List.of(
+                "La arena retumba mientras dos héroes legendarios cruzan miradas, listos para el choque de titanes.",
+                "Como dos estrellas en colisión, los campeones se encuentran en una danza mortal de acero y magia.",
+                "El destino converge en este momento, donde dos guerreros enfrentan sus almas en un combate épico.",
+                "El aire se carga con la promesa de un combate inolvidable mientras dos leyendas se preparan para luchar.",
+                "En el crepúsculo del campo de batalla, dos figuras imponentes se encaran, con la victoria en la mira.",
+                "La tensión se palpa cuando dos héroes, cada uno con su propio legado, se desafían en un duelo sin igual.",
+                "Dos almas valientes se encuentran en la encrucijada del destino, sus armas listas para narrar su historia.",
+                "Las leyendas cobran vida mientras dos personajes imparables chocan en una lucha por la gloria eterna.",
+                "Con un rugido que resuena a través de los eras, dos poderosos adversarios se lanzan al combate decisivo.",
+                "El choque de voluntades se hace físico mientras dos campeones se enfrentan, con sus ojos puestos en la victoria.",
+                "El susurro del viento cuenta la llegada de un duelo sin precedentes entre dos maestros de la guerra.",
+                "La tierra tiembla y el cielo oscurece cuando dos figuras épicas se preparan para su batalla definitiva.",
+                "Un silencio sepulcral precede al estruendo del enfrentamiento entre dos titanes de leyenda.",
+                "Dos héroes, dos destinos entrelazados, se encuentran en la cima del mundo para un duelo de honor.",
+                "La historia se escribe con cada golpe y conjuro en este choque de almas guerreras.",
+                "Como el choque de olas contra la roca, dos fuerzas de la naturaleza se encuentran en un enfrentamiento épico.",
+                "La chispa de la competición enciende un fuego feroz en el corazón de dos competidores inmortales.",
+                "El destino ha hilado su red, atrapando a dos combatientes en una danza de destreza y poder.",
+                "Un duelo de miradas precede al choque de espadas, donde solo uno proclamará la victoria.",
+                "En un mundo forjado en la eternidad, dos aventureros se baten en duelo bajo la mirada de los dioses."
+        );
+
+        System.out.println(frasesInicioConfrontacion.get(NumberGenerator.generateRandomPositiveInteger(1,20)-1));
+    }
+
     public static void imprimirRonda(Integer numeroRonda) {
         System.out.println("\n\n");
         System.out.println("\t\t ,----------------------------------------------------.");
@@ -115,7 +125,7 @@ public class PrintHelper {
                         "\\_|    \\___/\\_| \\_/ |___/ \\____/  \\_____|_| |_/ \\_|   \\_| |_|_| \\_| \\_/  \\___/|___/ \\_| |_/\n"
         );
         System.out.println("˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚");
-        System.out.println("|             EL JUGADOR VICTORIOSO ES " + jugadorGanador.toUpperCase() + "     |");
+        System.out.println("            | EL JUGADOR VICTORIOSO ES " + jugadorGanador.toUpperCase() + " |");
         System.out.println("˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚˚ ༘ ೀ⋆.˚");
     }
 

@@ -20,7 +20,7 @@ public class GameScreen extends JPanel {
     public GameScreen(ScreenChangeListener screenChangeListener, String nombreJugador) {
         this.screenChangeListener = screenChangeListener;
         PartidaService nuevaPartida = new PartidaService(nombreJugador);
-        initializeUI(nuevaPartida.inicializarPersonajes());
+        //initializeUI(nuevaPartida.inicializarPersonajes());
     }
 
     private void initializeUI(List<Jugador> jugadores) {
@@ -66,7 +66,7 @@ public class GameScreen extends JPanel {
             Jugador jugador = entrada.getKey(); // El jugador actual
             List<JLabel> cartas = entrada.getValue(); // La lista de cartas de ese jugador
 
-            System.out.println("Cartas para el jugador: " + jugador.nombre); // Asumiendo que Jugador tiene un método getNombre()
+            System.out.println("Cartas para el jugador: " + jugador.getNombre()); // Asumiendo que Jugador tiene un método getNombre()
 
             // Determina qué conjunto de posiciones usar y cuál índice incrementar
             int[][] posicionesCartas = jugadores.indexOf(jugador) == 0 ? posicionesCartasJugador : posicionesCartasMaquina;
